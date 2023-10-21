@@ -18,4 +18,15 @@ powershell -c "(Get-Content 'jicofo\Dockerfile') -replace 'FROM \${JITSI_REPO}/b
 echo jvb
 powershell -c "(Get-Content 'jvb\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jvb\Dockerfile'"
 
+
+echo docker-compose.yml
+
+powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/web:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:web' | Set-Content 'docker-compose.yml'"
+
+powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/prosody:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:prosody' | Set-Content 'docker-compose.yml'"
+
+powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jicofo:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jicofo' | Set-Content 'docker-compose.yml'"
+
+powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jvb:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jvb' | Set-Content 'docker-compose.yml'"
+
 pause 
