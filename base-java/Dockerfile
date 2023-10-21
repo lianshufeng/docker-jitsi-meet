@@ -1,6 +1,6 @@
 ARG JITSI_REPO=jitsi
 ARG BASE_TAG=latest
-FROM lianshufeng/meet-jits:base
+FROM lianshufeng/meet-jitsi:base
 
 RUN mkdir -p /usr/share/man/man1 && \
     apt-dpkg-wrap apt-get update && \
