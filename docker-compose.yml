@@ -24,6 +24,8 @@ services:
             - CALLSTATS_SECRET
             - CHROME_EXTENSION_BANNER_JSON
             - COLIBRI_WEBSOCKET_PORT
+            - COLIBRI_WEBSOCKET_JVB_LOOKUP_NAME
+            - COLIBRI_WEBSOCKET_REGEX
             - CONFCODE_URL
             - CONFIG_EXTERNAL_CONNECT
             - DEFAULT_LANGUAGE
@@ -38,6 +40,7 @@ services:
             - DIALOUT_AUTH_URL
             - DIALOUT_CODES_URL
             - DISABLE_AUDIO_LEVELS
+            - DISABLE_COLIBRI_WEBSOCKET_JVB_LOOKUP
             - DISABLE_DEEP_LINKING
             - DISABLE_GRANT_MODERATOR
             - DISABLE_HTTPS
@@ -58,6 +61,7 @@ services:
             - ENABLE_BREAKOUT_ROOMS
             - ENABLE_CALENDAR
             - ENABLE_COLIBRI_WEBSOCKET
+            - ENABLE_COLIBRI_WEBSOCKET_UNSAFE_REGEX
             - ENABLE_E2EPING
             - ENABLE_FILE_RECORDING_SHARING
             - ENABLE_GUESTS
@@ -147,6 +151,9 @@ services:
             - VIDEOQUALITY_BITRATE_VP9_LOW
             - VIDEOQUALITY_BITRATE_VP9_STANDARD
             - VIDEOQUALITY_BITRATE_VP9_HIGH
+            - VIDEOQUALITY_BITRATE_AV1_LOW
+            - VIDEOQUALITY_BITRATE_AV1_STANDARD
+            - VIDEOQUALITY_BITRATE_AV1_HIGH
             - VIDEOQUALITY_ENFORCE_PREFERRED_CODEC
             - VIDEOQUALITY_PREFERRED_CODEC
             - XMPP_AUTH_DOMAIN
@@ -257,6 +264,8 @@ services:
             - PROSODY_VISITOR_INDEX
             - PROSODY_VISITORS_MUC_PREFIX
             - PUBLIC_URL
+            - STUN_HOST
+            - STUN_PORT
             - TURN_CREDENTIALS
             - TURN_HOST
             - TURNS_HOST
@@ -304,6 +313,7 @@ services:
             - ENABLE_AUTO_OWNER
             - ENABLE_CODEC_VP8
             - ENABLE_CODEC_VP9
+            - ENABLE_CODEC_AV1
             - ENABLE_CODEC_H264
             - ENABLE_CODEC_OPUS_RED
             - ENABLE_JVB_XMPP_SERVER
@@ -373,6 +383,15 @@ services:
         volumes:
             - ${CONFIG}/jvb:/config:Z
         environment:
+            - AUTOSCALER_SIDECAR_KEY_FILE
+            - AUTOSCALER_SIDECAR_KEY_ID
+            - AUTOSCALER_SIDECAR_GROUP_NAME
+            - AUTOSCALER_SIDECAR_HOST_ID
+            - AUTOSCALER_SIDECAR_INSTANCE_ID
+            - AUTOSCALER_SIDECAR_PORT
+            - AUTOSCALER_SIDECAR_REGION
+            - AUTOSCALER_SIDECAR_SHUTDOWN_POLLING_INTERVAL
+            - AUTOSCALER_SIDECAR_STATS_POLLING_INTERVAL
             - DOCKER_HOST_ADDRESS
             - ENABLE_COLIBRI_WEBSOCKET
             - ENABLE_JVB_XMPP_SERVER
@@ -383,6 +402,7 @@ services:
             - JVB_AUTH_PASSWORD
             - JVB_BREWERY_MUC
             - JVB_DISABLE_STUN
+            - JVB_INSTANCE_ID
             - JVB_PORT
             - JVB_MUC_NICKNAME
             - JVB_STUN_SERVERS
