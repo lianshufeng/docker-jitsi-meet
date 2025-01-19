@@ -1,3 +1,4 @@
+{{ $CONFIG_PREFIX := .Env.WEB_CONFIG_PREFIX | default "// Jitsi Meet configuration.\n" -}}
 {{ $BOSH_RELATIVE := .Env.BOSH_RELATIVE | default "false" | toBool -}}
 {{ $ENABLE_AUTH := .Env.ENABLE_AUTH | default "false" | toBool -}}
 {{ $ENABLE_AUTH_DOMAIN := .Env.ENABLE_AUTH_DOMAIN | default "true" | toBool -}}
@@ -10,15 +11,13 @@
 {{ $XMPP_GUEST_DOMAIN := .Env.XMPP_GUEST_DOMAIN | default "guest.meet.jitsi" -}}
 {{ $XMPP_MUC_DOMAIN := .Env.XMPP_MUC_DOMAIN | default "muc.meet.jitsi" -}}
 {{ $XMPP_MUC_DOMAIN_PREFIX := (split "." $XMPP_MUC_DOMAIN)._0  -}}
-{{ $JVB_PREFER_SCTP := .Env.JVB_PREFER_SCTP | default "false" | toBool -}}
+{{ $JVB_PREFER_SCTP := .Env.JVB_PREFER_SCTP | default "1" | toBool -}}
 
-// Jitsi Meet configuration.
+{{ join "\n" (splitList "\\n" $CONFIG_PREFIX) }}
 var config = {};
 
 config.hosts = {};
-
 config.hosts.domain = '{{ $XMPP_DOMAIN }}';
-config.focusUserJid = 'focus@{{$XMPP_AUTH_DOMAIN}}';
 
 {{ if $ENABLE_SUBDOMAINS -}}
 var subdir = '<!--# echo var="subdir" default="" -->';
@@ -67,8 +66,6 @@ config.websocket = 'wss://{{ $PUBLIC_URL_DOMAIN }}/xmpp-websocket';
 {{ end -}}
 {{ end -}}
 
-{{ if $JVB_PREFER_SCTP -}}
 config.bridgeChannel = {
-    preferSctp: true
+    preferSctp: {{ $JVB_PREFER_SCTP }}
 };
-{{ end -}}
