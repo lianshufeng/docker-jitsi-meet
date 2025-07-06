@@ -29,4 +29,8 @@ powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jicofo:
 
 powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jvb:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jvb' | Set-Content 'docker-compose.yml'"
 
+
+:: 删掉工作流
+rd /s /q .github
+
 pause 
