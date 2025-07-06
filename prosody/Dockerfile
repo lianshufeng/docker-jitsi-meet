@@ -1,7 +1,7 @@
 ARG JITSI_REPO=jitsi
 ARG BASE_TAG=latest
 
-FROM ${JITSI_REPO}/base:${BASE_TAG} AS builder
+FROM lianshufeng/meet-jitsi:base AS builder
 
 RUN apt-dpkg-wrap apt-get update && \
     apt-dpkg-wrap apt-get install -y \
@@ -19,7 +19,7 @@ RUN apt-dpkg-wrap apt-get update && \
     luarocks install lua-cjson 2.1.0-1 && \
     luarocks install net-url 0.9-1
 
-FROM ${JITSI_REPO}/base:${BASE_TAG}
+FROM lianshufeng/meet-jitsi:base
 
 LABEL org.opencontainers.image.title="Prosody IM"
 LABEL org.opencontainers.image.description="XMPP server used for signalling."

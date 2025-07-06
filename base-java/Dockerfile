@@ -1,6 +1,6 @@
 ARG JITSI_REPO=jitsi
 ARG BASE_TAG=latest
-FROM ${JITSI_REPO}/base:${BASE_TAG}
+FROM lianshufeng/meet-jitsi:base
 
 RUN mkdir -p /usr/share/man/man1 && \
     mkdir -p /etc/apt/keyrings/ && \

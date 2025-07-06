@@ -1,6 +1,6 @@
 ARG JITSI_REPO=jitsi
 ARG BASE_TAG=latest
-FROM ${JITSI_REPO}/base-java:${BASE_TAG}
+FROM lianshufeng/meet-jitsi:base-java
 
 LABEL org.opencontainers.image.title="Jitsi Videobridge (jvb)"
 LABEL org.opencontainers.image.description="WebRTC compatible server designed to route video streams amongst participants in a conference."
