@@ -18,6 +18,10 @@ powershell -c "(Get-Content 'jicofo\Dockerfile') -replace 'FROM \${JITSI_REPO}/b
 echo jvb
 powershell -c "(Get-Content 'jvb\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jvb\Dockerfile'"
 
+echo jibri
+powershell -c "(Get-Content 'jibri\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jibri\Dockerfile'"
+
+
 
 echo docker-compose.yml
 
@@ -30,7 +34,12 @@ powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jicofo:
 powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jvb:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jvb' | Set-Content 'docker-compose.yml'"
 
 
+echo jibri.yml
+powershell -c "(Get-Content 'jibri.yml') -replace 'image: jitsi/jibri:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jibri' | Set-Content 'jibri.yml'"
+
+
+
 :: 删掉工作流
-rd /s /q .github
+:: rd /s /q .github
 
 pause 

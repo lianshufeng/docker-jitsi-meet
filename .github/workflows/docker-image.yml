@@ -61,3 +61,11 @@ jobs:
           IMAGE_NAME=lianshufeng/meet-jitsi:jvb
           docker build -f Dockerfile -t $IMAGE_NAME .
           docker push $IMAGE_NAME
+      
+      
+      - name: Build and push jibri
+        working-directory: jibri
+        run: |
+          IMAGE_NAME=lianshufeng/meet-jitsi:jibri
+          docker build -f Dockerfile -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
