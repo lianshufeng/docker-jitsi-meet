@@ -1,4 +1,7 @@
 @echo off
+chcp 65001
+
+
 cd /d %~dp0
 
 echo base-java
@@ -18,8 +21,11 @@ powershell -c "(Get-Content 'jicofo\Dockerfile') -replace 'FROM \${JITSI_REPO}/b
 echo jvb
 powershell -c "(Get-Content 'jvb\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jvb\Dockerfile'"
 
-echo jibri
+echo jibri 远程屏幕录制
 powershell -c "(Get-Content 'jibri\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jibri\Dockerfile'"
+
+echo jigasi 实时转写
+powershell -c "(Get-Content 'jigasi\Dockerfile') -replace 'FROM \${JITSI_REPO}/base-java:\${BASE_TAG}', 'FROM lianshufeng/meet-jitsi:base-java' | Set-Content 'jigasi\Dockerfile'"
 
 
 
@@ -34,8 +40,11 @@ powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jicofo:
 powershell -c "(Get-Content 'docker-compose.yml') -replace 'image: jitsi/jvb:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jvb' | Set-Content 'docker-compose.yml'"
 
 
-echo jibri.yml
+:: jibri.yml 远程屏幕录制
 powershell -c "(Get-Content 'jibri.yml') -replace 'image: jitsi/jibri:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jibri' | Set-Content 'jibri.yml'"
+
+:: jigasi.yml 实时转写
+powershell -c "(Get-Content 'jigasi.yml') -replace 'image: jitsi/jigasi:\${JITSI_IMAGE_VERSION:-unstable}', 'image: lianshufeng/meet-jitsi:jigasi' | Set-Content 'jigasi.yml'"
 
 
 
