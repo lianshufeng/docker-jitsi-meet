@@ -29,19 +29,18 @@ VOLUME ["/config", "/usr/share/jitsi-meet/transcripts"]
 RUN set -eux; \
     apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg && \
-    # Jibri 声音目录是否存在
     SOUND_DIR="/usr/share/jitsi-meet/sounds" && \
     mkdir -p "$SOUND_DIR" && \
-    # 生成 1 秒静 mp3 文件
-    ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -acodec pcm_s16le "$SOUND_DIR/silent.mp3" && \
-    # 替换提示
+    # 生成 1 秒静音 MP3 文件（使用 libmp3lame 编码器）
+    ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -q:a 9 -acodec libmp3lame "$SOUND_DIR/silent.mp3" && \
+    # 替换提示音
     cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOn.mp3" && \
     cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOff.mp3" && \
     # 清理临时文件
     apt-get purge -y ffmpeg && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
-
+	
 # ============================================================
 # 结束
 # ============================================================
