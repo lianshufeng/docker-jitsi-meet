@@ -30,13 +30,13 @@ RUN set -eux; \
     apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg && \
     # Jibri 声音目录是否存在
-    SOUND_DIR="/opt/jitsi/jibri/resources/sounds" && \
+    SOUND_DIR="/usr/share/jitsi-meet/sounds" && \
     mkdir -p "$SOUND_DIR" && \
-    # 生成 1 秒静 wav 文件
-    ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -acodec pcm_s16le "$SOUND_DIR/silent.wav" && \
+    # 生成 1 秒静 mp3 文件
+    ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -acodec pcm_s16le "$SOUND_DIR/silent.mp3" && \
     # 替换提示
-    cp "$SOUND_DIR/silent.wav" "$SOUND_DIR/start_recording.wav" && \
-    cp "$SOUND_DIR/silent.wav" "$SOUND_DIR/stop_recording.wav" && \
+    cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOn.mp3" && \
+    cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOff.mp3" && \
     # 清理临时文件
     apt-get purge -y ffmpeg && \
     apt-get autoremove -y && \
