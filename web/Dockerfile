@@ -23,23 +23,18 @@ VOLUME ["/config", "/usr/share/jitsi-meet/transcripts"]
 
 
 # ============================================================
-# 以下为自定义扩展部分：禁用录制提示音（Jibri专用）
-# ============================================================
-# 说明：
-# - 在容器构建时自动生成静音音频文件（1秒）
-# - 并替换 Jibri 内置的录制提示音文件
-# - 这样“开始录制 / 停止录制”时不会播放语音提示
+# 以下为自定义扩展部分：禁用录制提示音
 # ============================================================
 
 RUN set -eux; \
     apt-get update && \
     apt-get install -y --no-install-recommends ffmpeg && \
-    # 检查 Jibri 声音目录是否存在
+    # Jibri 声音目录是否存在
     SOUND_DIR="/opt/jitsi/jibri/resources/sounds" && \
     mkdir -p "$SOUND_DIR" && \
-    # 生成 1 秒静音 wav 文件
+    # 生成 1 秒静 wav 文件
     ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -acodec pcm_s16le "$SOUND_DIR/silent.wav" && \
-    # 替换提示音
+    # 替换提示
     cp "$SOUND_DIR/silent.wav" "$SOUND_DIR/start_recording.wav" && \
     cp "$SOUND_DIR/silent.wav" "$SOUND_DIR/stop_recording.wav" && \
     # 清理临时文件
