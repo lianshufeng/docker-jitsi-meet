@@ -23,7 +23,7 @@ VOLUME ["/config", "/usr/share/jitsi-meet/transcripts"]
 
 
 # ============================================================
-# 以下为自定义扩展部分：禁用录制提示音
+# Custom extension section: Disable recording notification sounds
 # ============================================================
 
 RUN set -eux; \
@@ -31,16 +31,16 @@ RUN set -eux; \
     apt-get install -y --no-install-recommends ffmpeg && \
     SOUND_DIR="/usr/share/jitsi-meet/sounds" && \
     mkdir -p "$SOUND_DIR" && \
-    # 生成 1 秒静音 MP3 文件（使用 libmp3lame 编码器）
+    # Generate 1-second silent MP3 file (using libmp3lame encoder)
     ffmpeg -f lavfi -i anullsrc=r=44100:cl=mono -t 1 -q:a 9 -acodec libmp3lame "$SOUND_DIR/silent.mp3" && \
-    # 替换提示音
+    # Replace notification sounds
     cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOn.mp3" && \
     cp "$SOUND_DIR/silent.mp3" "$SOUND_DIR/recordingOff.mp3" && \
-    # 清理临时文件
+    # Clean up temporary files
     apt-get purge -y ffmpeg && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 	
 # ============================================================
-# 结束
+# End
 # ============================================================
