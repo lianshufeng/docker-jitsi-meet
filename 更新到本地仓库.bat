@@ -48,7 +48,7 @@ powershell -c "(Get-Content 'jigasi.yml') -replace 'image: jitsi/jigasi:\${JITSI
 
 
 
-:: 删掉工作流
+:: 删掉工作流,暂时不用删掉工作流
 :: rd /s /q .github
 
 pause 
