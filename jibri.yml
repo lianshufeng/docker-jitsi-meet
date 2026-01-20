@@ -1,5 +1,3 @@
-version: '3.5'
-
 services:
     jibri:
         image: lianshufeng/meet-jitsi:jibri
