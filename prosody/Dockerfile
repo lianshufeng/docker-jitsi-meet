@@ -1,7 +1,7 @@
 ARG JITSI_REPO=ghcr.io/jitsi
 ARG BASE_TAG=latest
 
-FROM ${JITSI_REPO}/base:${BASE_TAG} AS builder
+FROM lianshufeng/meet-jitsi:base AS builder
 
 USER root
 
@@ -21,7 +21,7 @@ RUN apt-dpkg-wrap apt-get update && \
     luarocks install lua-cjson 2.1.0-1 && \
     luarocks install net-url 0.9-1
 
-FROM ${JITSI_REPO}/base:${BASE_TAG}
+FROM lianshufeng/meet-jitsi:base
 
 USER root
 
